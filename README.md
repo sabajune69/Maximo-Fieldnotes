@@ -1,0 +1,16 @@
+# Maximo Fieldnotes
+
+Original practical Maximo knowledge library. Public Site. PUT /api/editions requires the EDITOR_TOKEN runtime secret in the x-fieldnotes-editor-token header. GET editions is public. The monthly automation retrieves the Site service credential through Sites tools and uses it as the writer key. Never expose or log it; update the EDITOR_TOKEN secret if that service credential rotates.
+
+## Monthly editorial updates
+
+Sources: public IBM Maximo Community discussions, MORE Maximo forum and publisher podcast/YouTube catalogue, Maximo Secrets for subject discovery, current IBM documentation for product facts. Search the previous month, assess repeated subjects across sources, and distinguish recurring themes from measured popularity. Never invent view counts, reply counts or release claims. Write original scenarios and checklists; do not copy articles or transcripts. Clearly label illustrative examples, installed-version limitations and editorial recommendations.
+
+Get this same Site with Sites get_site at each run. Confirm active publication, owner-private audience and owner access. Obtain siwc_bypass_bearer_token only in memory. The platform credential supplies a private Site boundary, not a connected-source identity. All editorial sources are public and must be read independently using web search. No connected apps are required.
+
+GET current_live_url + /api/editions with OAI-Sites-Authorization: Bearer <current credential>. Preserve the complete existing edition if refreshing the same month. PUT a JSON edition to the same path with that header. Edition: {month:'YYYY-MM',title:string,methodology:string,articles:[{id:string,title:string,category:string,version:string,summary:string,readTime:string,sections:[{heading:string,body:string}],sources:[{label:string,url:'https://...'}]}]}. Add 3–5 useful source-backed guides covering the strongest verified community themes. Categories: Maintenance planning, Work management, Administration, Integration, Mobile, Reporting, MAS adoption, User experience. IDs must be unique across the archive. Include verified direct links to publisher audio/video when available. No rebuild or publication is needed for content updates.
+
+After PUT, GET and confirm the exact month, article IDs and content count. Retry only transient HTTP errors, using the same month and payload; writes are upserts so a retry cannot create another edition. Validation failure: fix the payload before retrying. If source evidence is insufficient or access fails, preserve all content, report the limitation and do not claim success. Never expose credentials in logs, prompts or source.
+
+The October initial edition is kept as a local fallback for a storage outage. Production first-edition content is seeded through the same supported unattended writer and read back before scheduling.
+\n## Traffic report\n\nThe public Site records aggregate page views by day and route. It does not store IP addresses or personal visitor profiles. The Traffic tab reads counts only for the owner identified by the Sites authenticated-user header. Numbers are approximate page-view events, not unique visitors, and may include refreshes or automated traffic.\n
